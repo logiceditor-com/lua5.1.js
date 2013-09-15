@@ -115,6 +115,12 @@ FAQ:
    Note that, for the reason outlined above, it is recommended that you keep
    this library in a separate file, not bundle it with other JS code.
 
+2. **Q:** Why not lua.vm.js (https://github.com/kripken/lua.vm.js)?
+
+   * The lua.vm.js is Lua 5.2, we need Lua 5.1.
+
+   * The lua.vm.js code is pretty much a prototype, which has to be heavily refactored to be useful in production. Better to start from scratch.
+
 See also:
 ---------
 
