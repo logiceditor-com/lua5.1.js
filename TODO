@@ -1,0 +1,33 @@
+TODO:
+=====
+
+Pull requests are welcome!
+
+-- Test if lua_error is working as expected
+
+-- Support these Lua C API items:
+   -- lua_pushvfstring (varargs)
+   -- lua_pushfstring (varargs)
+   -- Whole lua_Debug API
+   -- luaI_openlib (lua_Reg)
+   -- luaL_openlib (lua_Reg)
+   -- luaL_register (lua_Reg)
+   -- luaL_error (varargs)
+   -- luaL_checkoption (array of pointers)
+   -- Whole luaL_Buffer API
+
+-- Functions that take output pointers as parameters probably
+   require wrappers to work at all. Check that and fix as needed.
+
+-- Wrap API functions, that work with pointers, to handle JS-types
+   (for example, register JS functions automatically).
+   Support the raw data too, though, to keep things as flexible as possible.
+
+-- Document the API
+-- Split lua_c_api to three files, one per header. Load on demand.
+-- Port <script type="text/lua"> from lua.vm.js (easy).
+-- Port `js` object in Lua from lua.vm.js (probably needs a rewrite).
+-- Write a proper Makefile.
+-- Write a test suite (probably should use lua-TestMore for language compliance
+   verification, and write new tests for C API).
+-- Provide detailed and tested build instructions.
