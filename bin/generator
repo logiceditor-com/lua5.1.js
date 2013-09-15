@@ -1,0 +1,67 @@
+#! /usr/bin/env lua
+
+--------------------------------------------------------------------------------
+-- generator: simple template file generator
+-- This file is a part of lua5.1.js project:
+-- Copyright (c) LogicEditor <info@logiceditor.com>
+-- Copyright (c) lua5.1.js authors
+-- See file `COPYRIGHT` for the license
+--------------------------------------------------------------------------------
+-- Note: intentionally written with zero dependencies.
+--------------------------------------------------------------------------------
+
+local OUT_FILENAME = select(1, ...)
+local TEMPLATE_FILENAME = select(2, ...)
+local IN_FILES = { select(3, ...) }
+
+xpcall(function()
+
+assert(OUT_FILENAME, "missing out filename")
+assert(TEMPLATE_FILENAME, "missing template filename")
+assert(#IN_FILES > 0, "missing input files")
+
+end, function(err)
+
+  io.stderr:write [[
+generator: simple template file generator
+
+Usage:
+
+    bin/generator <out filename> <template filename> ...files
+
+Example:
+
+    bin/generator \
+      src/min/lua5.1.5-v1.0.0.min.js \
+      src/template/lua5.1.5.template.js \
+      src/generated/lua5.1.5.js \
+      src/js/*.js
+
+]]
+
+  io.stderr:write("Error:\n\n", err, "\n\n")
+
+  os.exit(1)
+end)
+
+local template = assert(io.open(TEMPLATE_FILENAME, "r")):read("*a")
+
+local dictionary = setmetatable(
+    { },
+    {
+      __index = function(t, k)
+        error("unknown placeholder: `/*{" .. tostring(k) .. "}*/'", 2)
+      end;
+    }
+  )
+for i = 1, #IN_FILES do
+  dictionary[
+      "{" .. IN_FILES[i]:gsub("^(.*/)", "") .. "}"
+    ] = assert(
+      io.open(IN_FILES[i], "r")
+    ):read("*a")
+end
+
+assert(io.open(OUT_FILENAME, "w")):write(
+    (template:gsub("/%*{(%b{})}%*/", dictionary))
+  )
