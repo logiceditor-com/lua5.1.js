@@ -3,6 +3,8 @@ TODO:
 
 Pull requests are welcome!
 
+-- Write a tool to package scripts, add example, documentation.
+
 -- Test if lua_error is working as expected
 
 -- Support these Lua C API items:
