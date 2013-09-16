@@ -38,4 +38,18 @@ var F = Module.cwrap;
 Lua5_1.C = C;
 Lua5_1.Runtime = Runtime;
 
+Lua5_1.provide_file = function(parent, name, data, can_read, can_write)
+{
+  if (typeof(parent) === "string" && parent !== "/")
+  {
+    if (parent.charAt(0) !== "/")
+    {
+      throw new Error("can't create relative path: `" + parent + "'");
+    }
+    parent = parent.substr(1);
+    parent = FS.createPath("/", parent, true, true);
+  }
+  return FS.createDataFile(parent, name, data, can_read, can_write);
+}
+
 })(Lua5_1);
