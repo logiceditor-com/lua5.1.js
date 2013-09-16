@@ -12,13 +12,11 @@ root=$(cd `dirname "${root}"` && pwd)
 
 # ------------------------------------------------------------------------------
 
-version="v0.9.0"
-
 TEMPLATEFILE=${TEMPLATEFILE:-"${root}/src/template/lua5.1.5.template.js"}
 FRAGMENTDIR=${FRAGMENTDIR:-"${root}/src/js"}
 GENERATEDDIR=${GENERATEDDIR:-"${root}/src/generated"}
 OUTDIR=${OUTDIR:-"${root}/src/min"}
-OUTFILE=${OUTFILE:-"${OUTDIR}/lua5.1.5-${version}.min.js"}
+OUTFILE=${OUTFILE:-"${OUTDIR}/lua5.1.5.min.js"}
 
 LUASRCDIR=${LUASRCDIR:-"${root}/lib/lua-5.1.5/src"}
 LUAJS=${LUAJS:-"${GENERATEDDIR}/lua5.1.5.js"}
