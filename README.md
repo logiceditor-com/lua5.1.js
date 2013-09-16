@@ -72,6 +72,40 @@ https://github.com/kripken/emscripten/wiki/Interacting-with-code
 
 Note: Pull requests to improve this document are very welcome.
 
+Bundling files for use with lua5.1.js
+-------------------------------------
+
+A simple packer tool, `lua5.1.js-file-packer` is provided to bundle files
+for use with the library.
+
+You can run it from `bin/` or install to your system with LuaRocks:
+
+    sudo luarocks install lua5.1.js-file-packer
+
+The `lua5.1.js-file-packer` packs a bunch of files to a JavaScript bundle file,
+which, when loaded, makes them available for lua5.1.js internal filesystem.
+
+You should include the bundle file after you include lua5.1.js itself.
+
+Run the tool as follows:
+
+    lua5.1.js-file-packer \
+      lua-nucleo.lua5.1.js \   # The bunle filename
+      /lua-nucleo/ \           # The base-path for packed files in JavaScript
+      ./ \                     # The base-path for local files
+      ./lua-nucleo/*.lua       # List of files to pack
+
+Resulting file path in JavaScript is local file path, moved from its local base
+path to the JavaScript base path.
+
+For example, for the command above, local file `./lua-nucleo/table.lua`
+would be available for JavaScript code as `/lua-nucleo/table.lua`. Default  "working directory" in lua5.1.js internal filesystem is the root, `/`, so
+you can `require` `table.lua` with the usual:
+
+    require 'lua-nucleo.table.lua'
+
+See also `example/packer/`.
+
 How to build lua5.1.5.js:
 -------------------------
 
