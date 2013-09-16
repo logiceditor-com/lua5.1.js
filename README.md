@@ -73,7 +73,7 @@ https://github.com/kripken/emscripten/wiki/Interacting-with-code
 Note: Pull requests to improve this document are very welcome.
 
 How to build lua5.1.5.js:
-------------------------
+-------------------------
 
 **NOTE:** You do not need to build `lua5.1.5.js` to use it.
           Just grab a minified file from `src/min/`, and go.
