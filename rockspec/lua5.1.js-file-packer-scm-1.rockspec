@@ -2,8 +2,9 @@ package = "lua5.1.js-file-packer"
 version = "scm-1"
 source =
 {
-  url = "git://github.com/logiceditor-com/lua5.1.js-file-packer";
+  url = "git://github.com/logiceditor-com/lua5.1.js";
   branch = "master";
+  dir = "lua5.1.js";
 }
 description =
 {
