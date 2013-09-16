@@ -33,3 +33,8 @@ Pull requests are welcome!
 -- Write a test suite (probably should use lua-TestMore for language compliance
    verification, and write new tests for C API).
 -- Provide detailed and tested build instructions.
+
+-- Bind emscripten.h
+-- Write code to pass JS and Lua objects and basic data types back and forth.
+-- Document squish workflow, provide an example.
+-- Document how to work with Lua C modules, provide an example.
