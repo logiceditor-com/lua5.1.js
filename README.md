@@ -17,7 +17,7 @@ See file `COPYRIGHT` for the license.
 Project status:
 ---------------
 
-Current version v0.9.0 is a community preview version.
+Current version v0.9.1 is a community preview version.
 
 This project is in early stages of its development. Early adopters
 are welcome. Production users should probably wait for a next release
