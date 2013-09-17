@@ -26,7 +26,7 @@ C.lua_pushcfunction(
   );
 C.lua_setglobal(L, "ALERT");
 
-if (C.luaL_dostring(L, "ALERT('Hello, world')") != 0)
+if (C.luaL_dostring(L, "ALERT('Hello, world')") !== 0)
 {
   var err = C.lua_tostring(L, -1);
   C.lua_close(L);
