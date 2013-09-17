@@ -16,9 +16,9 @@ local IN_FILES = { select(3, ...) }
 
 xpcall(function()
 
-assert(OUT_FILENAME, "missing out filename")
-assert(TEMPLATE_FILENAME, "missing template filename")
-assert(#IN_FILES > 0, "missing input files")
+  assert(OUT_FILENAME, "missing out filename")
+  assert(TEMPLATE_FILENAME, "missing template filename")
+  assert(#IN_FILES > 0, "missing input files")
 
 end, function(err)
 
