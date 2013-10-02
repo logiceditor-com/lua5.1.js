@@ -1,0 +1,136 @@
+<html>
+<head>
+
+<title>Hello from Lua!</title>
+
+<!Progress bars and such... add text, etc.>
+<style>
+
+#progress_cover {
+	background-color:white;
+	position:fixed;
+	top:0px;
+	left:0px;
+	height:100%;
+	width:100%;
+	z-index:10000000000;
+}
+
+#files_progress_container {
+	position:absolute;
+	top:45%;
+	height:5%;
+	left:30%;
+	width:50%;
+	border:2px groove;
+}
+
+#current_progress_container {
+	position:absolute;
+	top:55%;
+	height:5%;
+	left:30%;
+	width:50%;
+	border:2px groove;
+}
+
+#files_progress_bar {
+	background-color:blue;
+	width:0%;
+	height:100%;
+}
+
+#current_progress_bar {
+	background-color:purple;
+	width:0%;
+	height:100%;
+}
+</style>
+
+<div id='progress_cover'>
+	<h1 style='margin:10px;'>Loading...</h1>
+
+	<div id='files_progress_container'>
+		<div id='files_progress_bar'></div>
+	</div>
+
+	<div id='current_progress_container'>
+		<div id='current_progress_bar'></div>
+	</div>
+</div>
+
+<script src="lua5.1.5.min.js"></script>
+<script src="update_lua.js"></script>
+
+<script type="text/javascript">
+
+var C = Lua5_1.C;
+
+var L = C.lua_open();
+C.luaL_openlibs(L);
+
+C.lua_pushcfunction(
+    L,
+    Lua5_1.Runtime.addFunction(
+        function(L)
+        {
+          var str = C.luaL_checkstring(L, 1);
+
+		  alert("{Lua} " + str);
+
+          return 0;
+        }
+      )
+  );
+C.lua_setglobal(L, "ALERT");
+
+if (C.luaL_dostring(L, "ALERT('Hello, world')") !== 0)
+{
+  var err = C.lua_tostring(L, -1);
+  C.lua_close(L);
+  L = 0;
+  throw new Error("Lua error: " + err);
+}
+
+//
+function ShowProgress (frac_file, frac_byte)
+{
+	var pbox1 = document.getElementById("files_progress_bar")
+	var pbox2 = document.getElementById("current_progress_bar")
+
+	pbox1.style.width = Math.floor(100 * frac_file) + "%"
+	pbox2.style.width = Math.floor(100 * frac_byte) + "%"
+}
+
+//
+UpdateLua.BringUpToDate(function(how, arg) {
+	switch (how)
+	{
+	case "busy":
+		console.log("GETTING BUSY...")
+		return ShowProgress(0, 0)
+		// TODO: More subtle
+
+	case "busy_done":
+		console.log("OKAY, DONE")
+		return ShowProgress(1, 1)
+		// TODO: Hide bar (fade out?)
+		// document.getElementById("progress_cover").style.d isplay = "none"
+
+	case "busy_update":
+		return ShowProgress(arg.file_index / arg.file_count, arg.byte_index / arg.byte_count)
+
+	case "done":
+		// Proceed!
+		break
+
+	case "error":
+		console.log(arg)
+
+		break
+	}
+})
+
+</script>
+</body>
+</html>
